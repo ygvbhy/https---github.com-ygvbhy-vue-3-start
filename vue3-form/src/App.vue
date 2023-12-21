@@ -1,5 +1,5 @@
 <template>
-  <form action="">
+  <form action="" @submit.prevent="submitForm">
     <div>
       <label for="userId">ID:</label>
       <input type="text" id="yserID" v-model="username" />
@@ -13,12 +13,27 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
       username: "",
       password: "",
     };
+  },
+  methods: {
+    submitForm() {
+      const data = {
+        username: this.username,
+        password: this.password,
+      };
+      axios
+        .post("https://jsonplaceholder.typicode.com/users/", data)
+        .then((response) => {
+          console.log(response);
+        });
+    },
   },
 };
 </script>
