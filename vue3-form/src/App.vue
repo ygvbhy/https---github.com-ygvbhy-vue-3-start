@@ -14,27 +14,47 @@
 
 <script>
 import axios from "axios";
+import { ref } from "vue";
 
 export default {
-  data() {
-    return {
-      username: "",
-      password: "",
-    };
-  },
-  methods: {
-    submitForm() {
-      const data = {
-        username: this.username,
-        password: this.password,
-      };
+  setup() {
+    // data
+    let username = ref("");
+    let password = ref("");
+
+    // methods
+    const submitForm = () => {
       axios
-        .post("https://jsonplaceholder.typicode.com/users/", data)
+        .post("https://jsonplaceholder.typicode.com/users/", {
+          username: username.value,
+          password: password.value,
+        })
         .then((response) => {
           console.log(response);
         });
-    },
+    };
+
+    return { username, password, submitForm };
   },
+  // data() {
+  //   return {
+  //     username: "",
+  //     password: "",
+  //   };
+  // },
+  // methods: {
+  //   submitForm() {
+  //     const data = {
+  //       username: this.username,
+  //       password: this.password,
+  //     };
+  //     axios
+  //       .post("https://jsonplaceholder.typicode.com/users/", data)
+  //       .then((response) => {
+  //         console.log(response);
+  //       });
+  //   },
+  // },
 };
 </script>
 
